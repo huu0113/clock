@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>レトロ時計</title>
+  <style>
+    html, body {
+      background-color: #000;
+      color: #fff;
+      font-family: 'Courier New', monospace;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      overflow-x: hidden;
+    }
+    body {
+      text-align: center;
+      padding: 40px 20px;
+      box-sizing: border-box;
+    }
+    #time {
+      font-size: 10vw;
+      font-weight: bold;
+      word-break: break-word;
+    }
+    #date {
+      font-size: 5vw;
+      margin-top: 20px;
+      word-break: break-word;
+    }
+    #settings {
+      margin-top: 120px;
+      max-width: 100%;
+      overflow-x: auto;
+    }
+    label, input, button {
+      font-size: 1.2rem;
+      margin-top: 30px;
+      color: #fff;
+      background: #000;
+      border: 1px solid #fff;
+      padding: 8px;
+      border-radius: 6px;
+    }
+    input {
+      margin: 0 10px;
+    }
+  </style>
+</head>
+<body>
+  <div id="time">--:--:--</div>
+  <div id="date">----</div>
+
+  <div id="settings">
+    <label for="datetime">時刻設定:</label>
+    <input type="datetime-local" id="datetime" step="1" />
+    <button onclick="setCustomTime()">変更</button>
+  </div>
+
+  <script>
+    let customDate = null;
+
+    function updateClock() {
+      let now = customDate ? new Date(customDate) : new Date();
+
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const seconds = String(now.getSeconds()).padStart(2, '0');
+      
+      const year = now.getFullYear();
+      const month = now.toLocaleString('default', { month: 'long' });
+      const day = now.getDate();
+      const weekday = now.toLocaleDateString('ja-JP', { weekday: 'long' });
+
+      document.getElementById('time').textContent = `${hours}:${minutes}:${seconds}`;
+      document.getElementById('date').textContent = `${weekday}, ${month} ${day}, ${year}`;
+
+      if (customDate) {
+        customDate.setSeconds(customDate.getSeconds() + 1);
+      }
+    }
+
+    function setCustomTime() {
+      const input = document.getElementById('datetime').value;
+      if (input) {
+        customDate = new Date(input);
+      }
+    }
+
+    setInterval(updateClock, 1000);
+    updateClock();
+  </script>
+</body>
+</html>

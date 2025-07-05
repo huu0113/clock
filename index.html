@@ -74,7 +74,7 @@
       const weekday = now.toLocaleDateString('ja-JP', { weekday: 'short' }); // 例: (土)
 
       document.getElementById('time').textContent = `${hours}:${minutes}:${seconds}`;
-      document.getElementById('date').textContent = `${year}年 ${month}月 ${day}日 (${weekday})`;
+      document.getElementById('date').textContent = `${year}年 ${month} ${day}日 (${weekday})`;
 
       if (customDate) {
         customDate.setSeconds(customDate.getSeconds() + 1);

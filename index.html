@@ -20,7 +20,7 @@
       box-sizing: border-box;
     }
     #time {
-      font-size: 10vw;
+      font-size: 16vw;
       font-weight: bold;
       word-break: break-word;
     }
@@ -71,10 +71,10 @@
       const year = now.getFullYear();
       const month = now.toLocaleString('default', { month: 'long' });
       const day = now.getDate();
-      const weekday = now.toLocaleDateString('ja-JP', { weekday: 'long' });
+      const weekday = now.toLocaleDateString('ja-JP', { weekday: 'short' }); // 例: (土)
 
       document.getElementById('time').textContent = `${hours}:${minutes}:${seconds}`;
-      document.getElementById('date').textContent = `${weekday}, ${month} ${day}, ${year}`;
+      document.getElementById('date').textContent = `${year}年 ${month}月 ${day}日 (${weekday})`;
 
       if (customDate) {
         customDate.setSeconds(customDate.getSeconds() + 1);
